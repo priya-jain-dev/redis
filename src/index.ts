@@ -95,4 +95,4 @@ const PlanetListDemo = async () => {
   redisClient.quit();
 };
 
-PlanetListDemo();
+// PlanetListDemo();
