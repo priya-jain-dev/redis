@@ -96,3 +96,77 @@ const PlanetListDemo = async () => {
 };
 
 // PlanetListDemo();
+
+const RedisPipeline = async () => {
+  const hashSetPipeResult = await redisClient
+    .pipeline()
+    .hset(
+      "planet:mercury",
+      "name",
+      "Mercury",
+      "diameter",
+      4879,
+      "diameterUnit",
+      "km"
+    )
+    .hset(
+      "planet:venus",
+      "name",
+      "Venus",
+      "diameter",
+      12104,
+      "diameterUnit",
+      "km"
+    )
+    .hset(
+      "planet:earth",
+      "name",
+      "Earth",
+      "diameter",
+      12756,
+      "diameterUnit",
+      "km"
+    )
+    .hset("planet:mars", "name", "Mars", "diameter", 6779, "diameterUnit", "km")
+    .exec();
+  console.log("hashSetPipeResult ->", hashSetPipeResult);
+
+  const getPipeResult = await redisClient
+    .pipeline()
+    .hgetall("planet:earth")
+    .hgetall("planet:mars")
+    .exec();
+  console.log("getPipeResult ->", getPipeResult);
+  // Disconnect from Redis.
+  redisClient.quit();
+};
+
+// RedisPipeline();
+
+const multiValue = async () => {
+  const user = {
+    name: "priya",
+    age: 27,
+    description: "I am a honest person.",
+    interested: ["programming", "health", "business", "mindset"],
+  };
+
+  const mSetUser = await redisClient.mset(user);
+  console.log("set multi value ", mSetUser);
+
+  const name = await redisClient.get("name");
+  const interested = await redisClient.get("interested");
+  console.log("name - ", name, "interested - ", interested);
+
+  const exists = await redisClient.exists("name");
+  console.log("exists name - ", exists); // 0 (means false, and if it's 1, it means true)
+
+  await redisClient.incrby("age", 1); //for integer only
+  const newAge = await redisClient.get("age");
+  console.log(newAge); // 28
+
+  // Disconnect from Redis.
+  redisClient.quit();
+};
+
+multiValue();
