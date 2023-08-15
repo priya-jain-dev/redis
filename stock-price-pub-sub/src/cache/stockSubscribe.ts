@@ -17,5 +17,4 @@ export const subscribeToChannel = (
 
 export const unsubscribeFromChannel = (channel: string) => {
   redisSub.unsubscribe(channel);
-  // redisSub.off("message", onMessage);
 };
