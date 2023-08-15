@@ -4,7 +4,7 @@ import Redis from "ioredis";
 // const redisClient = new Redis(redis.port, redis.host, {
 //   password: redis.password,
 // });
-console.log(redis.port, redis.host);
+// console.log(redis.port, redis.host);
 
 const redisClient = new Redis({
   port: 6379,
