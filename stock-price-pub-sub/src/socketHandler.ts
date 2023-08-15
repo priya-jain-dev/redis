@@ -21,12 +21,12 @@ export const handleSocketConnections = (io: SocketIOServer) => {
       });
 
       socket.on("disconnect", () => {
-        console.log("User Disconnected!");
         unsubscribeFromChannel(subscribedChannel);
       });
     });
     // Additional cleanup on socket disconnect
     socket.on("disconnect", () => {
+      console.log("User Disconnected!");
       if (subscribedChannel) {
         unsubscribeFromChannel(subscribedChannel);
       }
