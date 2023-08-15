@@ -7,15 +7,22 @@
                 background-color: #24292e;
             }
             #mydata {
-                padding: 20px;
+                padding: 2rem;
                 color: aliceblue;
                 font-family: ui-monospace,SFMono-Regular,SF Mono,Consolas,Liberation Mono,Menlo,monospace!important;
                 font-size: 0.8em;
+            }
+            h1 {
+              font-size: 36px;
+              background: -webkit-linear-gradient(orange, white, green);
+              -webkit-background-clip: text;
+              -webkit-text-fill-color: transparent;
             }
         </style>
     </head>
     <body>
         <h1>Independence Day Stream</h1>
+        <div class="independence-day-flag"></div>
         <div id="mydata"></div>
         <script>
             var el = document.getElementById("mydata");
