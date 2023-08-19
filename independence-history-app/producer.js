@@ -8,7 +8,6 @@ const producer = process.env.PRODUCER || "indians";
 const redis = new Redis();
 
 async function sendMessages(messages) {
-  // let count = 0;
   for (const message of messages) {
     try {
       const { content, date } = message;
@@ -18,7 +17,6 @@ async function sendMessages(messages) {
         content: content,
         date: date,
       };
-      // const resp = await redis.xadd(streamKey, timestamp, 'data', JSON.stringify(data));
 
       const resp = await redis.xadd(
         streamKey,
