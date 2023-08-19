@@ -13,13 +13,14 @@ const tokenBucketOptions: TokenBucketOptions = {
 const tokenBucket = createTokenBucket(tokenBucketOptions);
 
 export function tokenBucketMiddleware() {
-  return (
+  return async (
     req: express.Request,
     res: express.Response,
     next: express.NextFunction
   ) => {
     const key = "user:" + req.ip; // Use the client's IP address as the key
-    if (tokenBucket.handleRequest(key)) {
+    const accepted = await tokenBucket.handleRequest(key);
+    if (accepted) {
       next();
     } else {
       res.status(429).send("Too Many Requests");
